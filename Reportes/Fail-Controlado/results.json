@@ -1,0 +1,49 @@
+{
+  "results": [
+    {
+      "code": "TC-SAN-003",
+      "name": "FAIL CONTROLADO - Validación HTML5 de correo",
+      "suite": "FAIL CONTROLADO",
+      "executor": "selenium",
+      "automation_status": "IMPLEMENTED",
+      "objective": "Demostrar que una aserción deliberadamente invertida produce un FAIL trazable sin alterar el ERP.",
+      "preconditions": "Edge WebDriver y formulario local de login disponibles.",
+      "test_data": {
+        "email": "not-an-email"
+      },
+      "validations": [
+        {
+          "typeMismatch": true
+        },
+        {
+          "formValid": false
+        }
+      ],
+      "expected": {
+        "demonstration": "FAIL CONTROLADO"
+      },
+      "status": "FAIL",
+      "duration_ms": 3520,
+      "obtained": "validity.typeMismatch=true; form.checkValidity()=false; mensaje de validación presente=true",
+      "observations": "FAIL CONTROLADO — expectativa de demostración invertida; no representa un defecto empresarial.",
+      "failure_step": "Aserción deliberadamente invertida después de verificar la validación HTML5 real",
+      "error_message": "FAIL CONTROLADO: la expectativa de demostración invertida no coincidió con la validación HTML5 real.",
+      "steps": [
+        {
+          "name": "Abrir el formulario real de acceso",
+          "description": "El formulario presenta el campo HTML email con el nombre esperado.",
+          "status": "PASS",
+          "obtained": "input#email, type=email y name=email disponibles."
+        },
+        {
+          "name": "Validación HTML5 del campo Correo electrónico",
+          "description": "La prueba confirma typeMismatch y bloquea el envío del formulario.",
+          "status": "FAIL",
+          "obtained": "validity.typeMismatch=true; form.checkValidity()=false; mensaje de validación presente=true",
+          "error_message": "FAIL CONTROLADO: la expectativa de demostración invertida no coincidió con la validación HTML5 real."
+        }
+      ],
+      "screenshot": "TC-SAN-003.png"
+    }
+  ]
+}

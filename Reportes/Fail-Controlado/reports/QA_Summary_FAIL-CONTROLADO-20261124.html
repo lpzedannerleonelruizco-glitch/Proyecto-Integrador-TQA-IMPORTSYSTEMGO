@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reporte QA FAIL-CONTROLADO-20261124</title><style>
+body{font-family:Arial,sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;color:#172033}
+h1,h2,h3{color:#081b38}.summary,.general{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.card,section{border:1px solid #dbe3ef;border-radius:8px;padding:14px;margin:14px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 18px;table-layout:fixed}
+th,td{border:1px solid #dbe3ef;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{background:#f1f5f9}.PASS{color:#198754}.FAIL{color:#dc3545}.BLOCKED{color:#a16207}.SKIPPED,.NOT-RUN{color:#6c757d}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:inherit}
+img{display:block;max-width:100%;height:auto;margin:12px auto;border:1px solid #dbe3ef}
+@media print{body{max-width:none;margin:0}.card,section{break-inside:avoid}a{color:inherit}}
+</style></head><body>
+<h1>IMPORTSYSTEMGO QA CENTER</h1><h2>Reporte de ejecución automatizada</h2>
+<section><h3>Datos generales</h3><div class="general">
+<div class="card">Identificador<br><strong>FAIL-CONTROLADO-20261124</strong></div>
+<div class="card">Inicio<br><strong>2026-11-24T20:44:44.167148+00:00</strong></div>
+<div class="card">Finalización<br><strong>2026-11-24T20:44:50.412136+00:00</strong></div>
+<div class="card">Duración<br><strong>6245 ms</strong></div>
+<div class="card">Ambiente<br><strong>SQLite QA local</strong></div>
+<div class="card">URL QA<br><strong>http://127.0.0.1:8001</strong></div>
+<div class="card">Suite<br><strong>FAIL CONTROLADO</strong></div>
+<div class="card">Destinatario<br><strong>qa.admin@example.test</strong></div>
+</div></section>
+<section><h3>Resumen</h3><div class="summary">
+<div class="card">PASS <strong>0</strong></div><div class="card">FAIL <strong>1</strong></div><div class="card">SKIPPED <strong>0</strong></div><div class="card">BLOCKED <strong>0</strong></div><div class="card">NOT RUN <strong>0</strong></div>
+<div class="card">Total de casos <strong>1</strong></div>
+<div class="card">Tasa PASS sobre casos medidos <strong>0.0%</strong></div>
+</div></section>
+<section><h2>TC-SAN-003 — FAIL CONTROLADO - Validación HTML5 de correo</h2>
+<table><tbody>
+<tr><th>Suite / categoría</th><td>FAIL CONTROLADO</td></tr>
+<tr><th>Estado</th><td class="FAIL">FAIL</td></tr>
+<tr><th>Duración</th><td>3520 ms</td></tr>
+<tr><th>Objetivo</th><td><pre>Demostrar que una aserción deliberadamente invertida produce un FAIL trazable sin alterar el ERP.</pre></td></tr>
+<tr><th>Precondiciones</th><td><pre>Edge WebDriver y formulario local de login disponibles.</pre></td></tr>
+<tr><th>Datos de prueba</th><td><pre>{
+  &#34;email&#34;: &#34;not-an-email&#34;
+}</pre></td></tr>
+<tr><th>Validaciones</th><td><pre>[
+  {
+    &#34;typeMismatch&#34;: true
+  },
+  {
+    &#34;formValid&#34;: false
+  }
+]</pre></td></tr>
+<tr><th>Resultado esperado</th><td><pre>{
+  &#34;demonstration&#34;: &#34;FAIL CONTROLADO&#34;
+}</pre></td></tr>
+<tr><th>Resultado obtenido</th><td><pre>validity.typeMismatch=true; form.checkValidity()=false; mensaje de validación presente=true</pre></td></tr>
+<tr><th>Paso fallido</th><td><pre>Aserción deliberadamente invertida después de verificar la validación HTML5 real</pre></td></tr>
+<tr><th>Error</th><td><pre>FAIL CONTROLADO: la expectativa de demostración invertida no coincidió con la validación HTML5 real.</pre></td></tr>
+<tr><th>Observaciones</th><td><pre>FAIL CONTROLADO — expectativa de demostración invertida; no representa un defecto empresarial.</pre></td></tr>
+</tbody></table>
+<h3>Pasos ejecutados</h3><table><thead><tr><th>#</th><th>Paso</th><th>Estado</th><th>Resultado obtenido</th><th>Error</th></tr></thead><tbody>
+<tr><td>1</td><td>Abrir el formulario real de acceso</td><td>PASS</td><td>input#email, type=email y name=email disponibles.</td><td>No especificado</td></tr><tr><td>2</td><td>Validación HTML5 del campo Correo electrónico</td><td>FAIL</td><td>validity.typeMismatch=true; form.checkValidity()=false; mensaje de validación presente=true</td><td>FAIL CONTROLADO: la expectativa de demostración invertida no coincidió con la validación HTML5 real.</td></tr>
+</tbody></table>
+<h3>Evidencia capturada</h3><img src="../screenshots/TC-SAN-003.png" alt="Captura del caso TC-SAN-003">
+</section>
+</body></html>

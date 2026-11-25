@@ -1,0 +1,47 @@
+{
+  "results": [
+    {
+      "code": "TC-NF-001",
+      "name": "Carga corta del endpoint local",
+      "suite": "No funcional",
+      "executor": "locust",
+      "automation_status": "IMPLEMENTED",
+      "objective": "Medir una carga local corta sin afirmar capacidad productiva.",
+      "preconditions": "Servidor QA disponible exclusivamente en 127.0.0.1:8001.",
+      "test_data": {
+        "users": 1,
+        "requests_per_user": 14
+      },
+      "validations": [
+        {
+          "requests": 14
+        },
+        {
+          "failures": 0
+        },
+        {
+          "p95_ms_max": 2000
+        }
+      ],
+      "expected": {
+        "result": "PASS si cumple los umbrales"
+      },
+      "status": "PASS",
+      "duration_ms": 16467,
+      "obtained": "CSV Locust: 14 solicitudes, 0 fallidas, p95=520 ms; esperado=14 solicitudes.",
+      "observations": "Carga breve y de solo lectura contra el QA local; no es certificación de capacidad.",
+      "failure_step": null,
+      "error_message": null,
+      "steps": [
+        {
+          "name": "Perfil Locust de 1 usuario(s)",
+          "description": "Se esperan 14 solicitudes según el CSV agregado.",
+          "status": "PASS",
+          "obtained": "CSV Locust: 14 solicitudes, 0 fallidas, p95=520 ms; esperado=14 solicitudes.",
+          "error_message": null
+        }
+      ],
+      "screenshot": null
+    }
+  ]
+}
