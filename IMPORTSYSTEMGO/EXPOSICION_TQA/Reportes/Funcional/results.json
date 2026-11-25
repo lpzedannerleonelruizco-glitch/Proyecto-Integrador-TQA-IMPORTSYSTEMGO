@@ -1,0 +1,82 @@
+{
+  "results": [
+    {
+      "code": "TC-SMK-003",
+      "name": "Consulta de productos",
+      "suite": "Smoke Testing",
+      "executor": "phpunit",
+      "automation_status": "IMPLEMENTED",
+      "objective": "Comprobar que el catálogo es accesible según permisos.",
+      "preconditions": "phpunit.xml y SQLite en memoria disponibles.",
+      "test_data": {
+        "source": "factories aisladas"
+      },
+      "validations": [
+        {
+          "status": 200
+        },
+        {
+          "catalog": "visible"
+        }
+      ],
+      "expected": {
+        "result": "PASS"
+      },
+      "status": "PASS",
+      "duration_ms": 2585,
+      "obtained": "phpunit.xml con SQLite :memory:; OK (1 test, 11 assertions)",
+      "observations": "Prueba enfocada ejecutada en aislamiento; no usa database/qa.sqlite.",
+      "failure_step": null,
+      "error_message": null,
+      "steps": [
+        {
+          "name": "PHPUnit: test_specialist_and_supervisor_workspaces_are_reachable_by_permission",
+          "description": "Suite configurada explícitamente con phpunit.xml y SQLite en memoria.",
+          "status": "PASS",
+          "obtained": "OK (1 test, 11 assertions)",
+          "error_message": null
+        }
+      ],
+      "screenshot": null
+    },
+    {
+      "code": "TC-SMK-004",
+      "name": "Consulta de inventario",
+      "suite": "Smoke Testing",
+      "executor": "phpunit",
+      "automation_status": "IMPLEMENTED",
+      "objective": "Comprobar que inventario y reportes respetan la sucursal activa.",
+      "preconditions": "phpunit.xml y SQLite en memoria disponibles.",
+      "test_data": {
+        "source": "factories aisladas"
+      },
+      "validations": [
+        {
+          "status": 200
+        },
+        {
+          "scope": "active_branch"
+        }
+      ],
+      "expected": {
+        "result": "PASS"
+      },
+      "status": "PASS",
+      "duration_ms": 2246,
+      "obtained": "phpunit.xml con SQLite :memory:; OK (1 test, 6 assertions)",
+      "observations": "Prueba enfocada ejecutada en aislamiento; no usa database/qa.sqlite.",
+      "failure_step": null,
+      "error_message": null,
+      "steps": [
+        {
+          "name": "PHPUnit: test_reports_and_inventory_are_scoped_to_active_branch",
+          "description": "Suite configurada explícitamente con phpunit.xml y SQLite en memoria.",
+          "status": "PASS",
+          "obtained": "OK (1 test, 6 assertions)",
+          "error_message": null
+        }
+      ],
+      "screenshot": null
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+@extends('layouts.app')
+@section('title', 'Ventas')
+@section('page-label', 'Gestión de ventas')
+@section('content')
+<section class="page-hero"><div><span class="eyebrow">Ventas</span><h1>Operaciones comerciales</h1><p>{{ $branch->name }} · Seguimiento de ventas y cobros.</p></div>@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'sales.create', $branch))<a class="btn btn-light" href="{{ route('sales.create') }}">Nueva venta</a>@endif</section>
+<section class="panel-card mt-4"><div class="panel-heading"><div><span class="eyebrow">Historial</span><h2>Ventas de la sucursal</h2></div></div><div class="table-responsive"><table class="table"><thead><tr><th>Número</th><th>Fecha</th><th>Cliente</th><th>Vendedor</th><th>Total</th><th>Estado</th></tr></thead><tbody>@forelse($sales as $sale)<tr><td><strong>{{ $sale->sale_number }}</strong></td><td>{{ $sale->sold_at->format('d/m/Y H:i') }}</td><td>{{ $sale->customer?->full_name ?? 'Consumidor final' }}</td><td>{{ $sale->salesperson->name }}</td><td>Bs {{ number_format((float)$sale->total, 2) }}</td><td><span class="badge {{ $sale->status === 'paid' ? 'text-bg-success' : ($sale->status === 'credit' ? 'text-bg-info' : 'text-bg-warning') }}">{{ str_replace('_', ' ', ucfirst($sale->status)) }}</span></td></tr>@empty<tr><td colspan="6">Aún no existen ventas.</td></tr>@endforelse</tbody></table></div>{{ $sales->links() }}</section>
+@endsection

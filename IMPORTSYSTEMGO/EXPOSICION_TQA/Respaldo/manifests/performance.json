@@ -1,0 +1,16 @@
+[
+  {
+    "code": "TC-NF-001",
+    "name": "Carga corta del endpoint local",
+    "category": "performance",
+    "case_type": "non_functional",
+    "executor": "locust",
+    "objective": "Medir una carga local corta sin afirmar capacidad productiva.",
+    "preconditions": "Servidor QA disponible exclusivamente en 127.0.0.1:8001.",
+    "test_data": {"users": 1, "requests_per_user": 14},
+    "validations": [{"requests": 14}, {"failures": 0}, {"p95_ms_max": 2000}],
+    "expected_result": {"result": "PASS si cumple los umbrales"},
+    "suite": "No funcional",
+    "automation": {"status": "IMPLEMENTED", "engine": "locust", "users": 1, "requests_per_user": 14}
+  }
+]

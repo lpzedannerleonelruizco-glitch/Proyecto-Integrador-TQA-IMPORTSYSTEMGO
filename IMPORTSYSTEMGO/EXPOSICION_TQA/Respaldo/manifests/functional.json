@@ -1,0 +1,30 @@
+[
+  {
+    "code": "TC-SMK-003",
+    "name": "Consulta de productos",
+    "category": "smoke",
+    "case_type": "functional",
+    "executor": "phpunit",
+    "objective": "Comprobar que el catálogo es accesible según permisos.",
+    "preconditions": "phpunit.xml y SQLite en memoria disponibles.",
+    "test_data": {"source": "factories aisladas"},
+    "validations": [{"status": 200}, {"catalog": "visible"}],
+    "expected_result": {"result": "PASS"},
+    "suite": "Smoke Testing",
+    "automation": {"status": "IMPLEMENTED", "engine": "phpunit", "test": "test_specialist_and_supervisor_workspaces_are_reachable_by_permission"}
+  },
+  {
+    "code": "TC-SMK-004",
+    "name": "Consulta de inventario",
+    "category": "smoke",
+    "case_type": "functional",
+    "executor": "phpunit",
+    "objective": "Comprobar que inventario y reportes respetan la sucursal activa.",
+    "preconditions": "phpunit.xml y SQLite en memoria disponibles.",
+    "test_data": {"source": "factories aisladas"},
+    "validations": [{"status": 200}, {"scope": "active_branch"}],
+    "expected_result": {"result": "PASS"},
+    "suite": "Smoke Testing",
+    "automation": {"status": "IMPLEMENTED", "engine": "phpunit", "test": "test_reports_and_inventory_are_scoped_to_active_branch"}
+  }
+]

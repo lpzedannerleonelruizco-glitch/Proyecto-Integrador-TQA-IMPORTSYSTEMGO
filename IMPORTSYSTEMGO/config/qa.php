@@ -1,0 +1,41 @@
+<?php
+
+return [
+    'base_url' => env('QA_BASE_URL', 'http://127.0.0.1:8001'),
+    'e2e' => [
+        'email' => env('QA_E2E_EMAIL', 'qa.admin@example.test'),
+        'password' => env('QA_E2E_PASSWORD'),
+    ],
+    'automation' => [
+        'TC-SMK-001' => ['status' => 'IMPLEMENTED', 'engine' => 'selenium'],
+        'TC-SMK-002' => ['status' => 'IMPLEMENTED', 'engine' => 'selenium'],
+        'TC-SMK-003' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_specialist_and_supervisor_workspaces_are_reachable_by_permission'],
+        'TC-SMK-004' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_reports_and_inventory_are_scoped_to_active_branch'],
+        'TC-SAN-001' => ['status' => 'NOT RUN', 'reason' => 'No existe una prueba automatizada específica de búsqueda de productos.'],
+        'TC-SAN-002' => ['status' => 'NOT RUN', 'reason' => 'No existe una prueba automatizada específica del cálculo de totales.'],
+        'TC-SAN-003' => ['status' => 'IMPLEMENTED', 'engine' => 'selenium', 'scenario' => 'controlled_validation'],
+        'TC-REG-001' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_administrator_can_create_catalog_and_product_but_cost_is_receipt_controlled'],
+        'TC-REG-002' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_receipt_is_idempotent_updates_cost_balance_kardex_and_audit'],
+        'TC-REG-003' => ['status' => 'NOT RUN', 'reason' => 'La cobertura existente comprueba ajustes negativos, pero no una salida de inventario.'],
+        'TC-REG-004' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_serialized_receipt_sale_and_payment_keep_one_unique_identifier'],
+        'TC-REG-005' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_branch_role_does_not_leak_to_another_branch'],
+        'TC-INT-001' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_serialized_receipt_sale_and_payment_keep_one_unique_identifier'],
+        'TC-INT-002' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_administrator_can_create_catalog_and_product_but_cost_is_receipt_controlled'],
+        'TC-INT-003' => ['status' => 'NOT RUN', 'reason' => 'No existe una prueba específica que vincule una venta con su reporte.'],
+        'TC-E2E-001' => ['status' => 'BLOCKED', 'reason' => 'Falta un usuario operativo con sucursal y caja aisladas para ejecutar el flujo completo desde el navegador.'],
+        'TC-E2E-002' => ['status' => 'BLOCKED', 'reason' => 'Falta un usuario de almacén con sucursal y datos de recepción aislados para ejecutar el flujo completo desde el navegador.'],
+        'TC-NF-001' => ['status' => 'IMPLEMENTED', 'engine' => 'locust', 'users' => 1, 'requests_per_user' => 14],
+        'TC-NF-002' => ['status' => 'IMPLEMENTED', 'engine' => 'locust', 'users' => 2, 'requests_per_user' => 15],
+        'TC-NF-003' => ['status' => 'IMPLEMENTED', 'engine' => 'locust', 'users' => 4, 'requests_per_user' => 15],
+        'TC-NF-004' => ['status' => 'IMPLEMENTED', 'engine' => 'locust', 'users' => 1, 'requests_per_user' => 20],
+        'TC-NF-005' => ['status' => 'IMPLEMENTED', 'engine' => 'robot', 'test' => 'TC-SMK-002 Ruta protegida requiere autenticación'],
+        'TC-NF-006' => ['status' => 'IMPLEMENTED', 'engine' => 'phpunit', 'test' => 'test_branch_role_does_not_leak_to_another_branch'],
+    ],
+    'ai' => [
+        'provider' => env('QA_AI_PROVIDER', 'none'),
+        'model' => env('QA_AI_MODEL'),
+        'ollama_url' => env('QA_AI_OLLAMA_URL', 'http://127.0.0.1:11434'),
+        'api_url' => env('QA_AI_API_URL'),
+        'api_key' => env('QA_AI_API_KEY'),
+    ],
+];

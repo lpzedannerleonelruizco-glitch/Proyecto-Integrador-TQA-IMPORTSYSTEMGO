@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reporte QA FUNCIONAL-20261124</title><style>
+body{font-family:Arial,sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;color:#172033}
+h1,h2,h3{color:#081b38}.summary,.general{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.card,section{border:1px solid #dbe3ef;border-radius:8px;padding:14px;margin:14px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 18px;table-layout:fixed}
+th,td{border:1px solid #dbe3ef;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{background:#f1f5f9}.PASS{color:#198754}.FAIL{color:#dc3545}.BLOCKED{color:#a16207}.SKIPPED,.NOT-RUN{color:#6c757d}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:inherit}
+img{display:block;max-width:100%;height:auto;margin:12px auto;border:1px solid #dbe3ef}
+@media print{body{max-width:none;margin:0}.card,section{break-inside:avoid}a{color:inherit}}
+</style></head><body>
+<h1>IMPORTSYSTEMGO QA CENTER</h1><h2>Reporte de ejecución automatizada</h2>
+<section><h3>Datos generales</h3><div class="general">
+<div class="card">Identificador<br><strong>FUNCIONAL-20261124</strong></div>
+<div class="card">Inicio<br><strong>2026-11-24T20:44:38.413869+00:00</strong></div>
+<div class="card">Finalización<br><strong>2026-11-24T20:44:43.244649+00:00</strong></div>
+<div class="card">Duración<br><strong>4831 ms</strong></div>
+<div class="card">Ambiente<br><strong>SQLite QA local</strong></div>
+<div class="card">URL QA<br><strong>http://127.0.0.1:8001</strong></div>
+<div class="card">Suite<br><strong>Smoke Testing</strong></div>
+<div class="card">Destinatario<br><strong>qa.admin@example.test</strong></div>
+</div></section>
+<section><h3>Resumen</h3><div class="summary">
+<div class="card">PASS <strong>2</strong></div><div class="card">FAIL <strong>0</strong></div><div class="card">SKIPPED <strong>0</strong></div><div class="card">BLOCKED <strong>0</strong></div><div class="card">NOT RUN <strong>0</strong></div>
+<div class="card">Total de casos <strong>2</strong></div>
+<div class="card">Tasa PASS sobre casos medidos <strong>100.0%</strong></div>
+</div></section>
+<section><h2>TC-SMK-003 — Consulta de productos</h2>
+<table><tbody>
+<tr><th>Suite / categoría</th><td>Smoke Testing</td></tr>
+<tr><th>Estado</th><td class="PASS">PASS</td></tr>
+<tr><th>Duración</th><td>2585 ms</td></tr>
+<tr><th>Objetivo</th><td><pre>Comprobar que el catálogo es accesible según permisos.</pre></td></tr>
+<tr><th>Precondiciones</th><td><pre>phpunit.xml y SQLite en memoria disponibles.</pre></td></tr>
+<tr><th>Datos de prueba</th><td><pre>{
+  &#34;source&#34;: &#34;factories aisladas&#34;
+}</pre></td></tr>
+<tr><th>Validaciones</th><td><pre>[
+  {
+    &#34;status&#34;: 200
+  },
+  {
+    &#34;catalog&#34;: &#34;visible&#34;
+  }
+]</pre></td></tr>
+<tr><th>Resultado esperado</th><td><pre>{
+  &#34;result&#34;: &#34;PASS&#34;
+}</pre></td></tr>
+<tr><th>Resultado obtenido</th><td><pre>phpunit.xml con SQLite :memory:; OK (1 test, 11 assertions)</pre></td></tr>
+<tr><th>Paso fallido</th><td><pre>No especificado</pre></td></tr>
+<tr><th>Error</th><td><pre>No especificado</pre></td></tr>
+<tr><th>Observaciones</th><td><pre>Prueba enfocada ejecutada en aislamiento; no usa database/qa.sqlite.</pre></td></tr>
+</tbody></table>
+<h3>Pasos ejecutados</h3><table><thead><tr><th>#</th><th>Paso</th><th>Estado</th><th>Resultado obtenido</th><th>Error</th></tr></thead><tbody>
+<tr><td>1</td><td>PHPUnit: test_specialist_and_supervisor_workspaces_are_reachable_by_permission</td><td>PASS</td><td>OK (1 test, 11 assertions)</td><td>No especificado</td></tr>
+</tbody></table>
+
+</section><section><h2>TC-SMK-004 — Consulta de inventario</h2>
+<table><tbody>
+<tr><th>Suite / categoría</th><td>Smoke Testing</td></tr>
+<tr><th>Estado</th><td class="PASS">PASS</td></tr>
+<tr><th>Duración</th><td>2246 ms</td></tr>
+<tr><th>Objetivo</th><td><pre>Comprobar que inventario y reportes respetan la sucursal activa.</pre></td></tr>
+<tr><th>Precondiciones</th><td><pre>phpunit.xml y SQLite en memoria disponibles.</pre></td></tr>
+<tr><th>Datos de prueba</th><td><pre>{
+  &#34;source&#34;: &#34;factories aisladas&#34;
+}</pre></td></tr>
+<tr><th>Validaciones</th><td><pre>[
+  {
+    &#34;status&#34;: 200
+  },
+  {
+    &#34;scope&#34;: &#34;active_branch&#34;
+  }
+]</pre></td></tr>
+<tr><th>Resultado esperado</th><td><pre>{
+  &#34;result&#34;: &#34;PASS&#34;
+}</pre></td></tr>
+<tr><th>Resultado obtenido</th><td><pre>phpunit.xml con SQLite :memory:; OK (1 test, 6 assertions)</pre></td></tr>
+<tr><th>Paso fallido</th><td><pre>No especificado</pre></td></tr>
+<tr><th>Error</th><td><pre>No especificado</pre></td></tr>
+<tr><th>Observaciones</th><td><pre>Prueba enfocada ejecutada en aislamiento; no usa database/qa.sqlite.</pre></td></tr>
+</tbody></table>
+<h3>Pasos ejecutados</h3><table><thead><tr><th>#</th><th>Paso</th><th>Estado</th><th>Resultado obtenido</th><th>Error</th></tr></thead><tbody>
+<tr><td>1</td><td>PHPUnit: test_reports_and_inventory_are_scoped_to_active_branch</td><td>PASS</td><td>OK (1 test, 6 assertions)</td><td>No especificado</td></tr>
+</tbody></table>
+
+</section>
+</body></html>

@@ -1,0 +1,10 @@
+@extends('layouts.app')
+@section('title', $type === 'categories' ? 'Categorías' : 'Marcas')
+@section('page-label', 'Inventarios · catálogos')
+@section('content')
+@php($label = $type === 'categories' ? 'Categorías' : 'Marcas')
+@php($routeType = $type === 'categories' ? 'categorias' : 'marcas')
+<section class="page-hero"><div><span class="eyebrow">Catálogo maestro</span><h1>{{ $label }}</h1><p>Los registros se desactivan para conservar el historial vinculado.</p></div><a href="{{ route('inventory.taxonomy.create', $routeType) }}" class="btn btn-light">Crear {{ strtolower($label) }}</a></section>
+<section class="panel-card mt-4"><div class="panel-heading"><h2 class="h5 mb-0">{{ $label }} registradas</h2><form method="GET" class="d-flex gap-2"><input class="form-control" name="q" value="{{ request('q') }}" placeholder="Código o nombre"><button class="btn btn-primary">Buscar</button></form></div>
+<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Código</th><th>Nombre</th><th>Productos vinculados</th><th>Estado</th><th></th></tr></thead><tbody>@forelse($records as $record)<tr><td><strong>{{ $record->code }}</strong></td><td>{{ $record->name }}</td><td>{{ $record->products()->count() }}</td><td><span class="badge {{ $record->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $record->is_active ? 'Activo' : 'Inactivo' }}</span></td><td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{{ route('inventory.taxonomy.edit', [$routeType, $record->id]) }}">Editar</a><form class="d-inline" method="POST" action="{{ route('inventory.taxonomy.state', [$routeType, $record->id]) }}" data-confirm="¿{{ $record->is_active ? 'Desactivar' : 'Activar' }} este registro?">@csrf @method('PATCH')<input type="hidden" name="is_active" value="{{ $record->is_active ? 0 : 1 }}"><button class="btn btn-sm btn-outline-secondary">{{ $record->is_active ? 'Desactivar' : 'Activar' }}</button></form></td></tr>@empty<tr><td colspan="5">No hay registros para mostrar.</td></tr>@endforelse</tbody></table></div>{{ $records->links() }}</section>
+@endsection

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><meta name="theme-color" content="#081b38"><title>@yield('title', 'Inicio') · IMPORTSYSTEMGO</title>@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
+<body class="@guest guest-shell @endguest"><a href="#content" class="visually-hidden-focusable skip-link">Saltar al contenido</a>
+@auth
+<div class="app-shell"><aside class="app-sidebar" id="appSidebar" aria-label="Navegación principal">
+<div class="brand-lockup"><span class="brand-mark" aria-hidden="true"><span>IS</span></span><span class="brand-copy"><strong>IMPORTSYSTEMGO</strong><small>Retail ERP</small></span><button class="sidebar-close d-lg-none" type="button" data-sidebar-toggle aria-label="Cerrar menú">×</button></div>
+<div class="sidebar-context"><span class="eyebrow">Espacio activo</span><strong>{{ session('active_branch_id') ? 'Sucursal seleccionada' : 'Sin sucursal activa' }}</strong></div>
+<nav class="sidebar-nav"><span class="nav-section">Principal</span>
+@if(session('active_branch_id'))<a class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"><span class="nav-icon">⌂</span><span>Panel principal</span></a>@endif
+<a class="nav-item {{ request()->routeIs('branches.*') ? 'active' : '' }}" href="{{ route('branches.select') }}"><span class="nav-icon">◇</span><span>Cambiar sucursal</span></a>
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'security.users.view'))<span class="nav-section">Administración</span><a class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}"><span class="nav-icon">♙</span><span>Usuarios</span></a>@endif
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'security.roles.view'))<a class="nav-item {{ request()->routeIs('roles.*') ? 'active' : '' }}" href="{{ route('roles.index') }}"><span class="nav-icon">⌘</span><span>Roles y permisos</span></a>@endif
+<span class="nav-section">QA Center</span>
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'qa.executions.view'))
+<a class="nav-item {{ request()->routeIs('qa.dashboard') ? 'active' : '' }}" href="{{ route('qa.dashboard') }}"><span class="nav-icon">◉</span><span>Dashboard QA</span></a>
+<a class="nav-item {{ request()->routeIs('qa.executions.history') ? 'active' : '' }}" href="{{ route('qa.executions.history') }}"><span class="nav-icon">▥</span><span>Historial QA</span></a>
+@endif
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'qa.executions.run'))<a class="nav-item {{ request()->routeIs('qa.executions.create') ? 'active' : '' }}" href="{{ route('qa.executions.create') }}"><span class="nav-icon">▶</span><span>Nueva ejecución</span></a>@endif
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'qa.cases.view'))<a class="nav-item {{ request()->routeIs('qa.cases.*') ? 'active' : '' }}" href="{{ route('qa.cases.index') }}"><span class="nav-icon">☷</span><span>Catálogo QA</span></a>@endif
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'qa.ai.use'))<a class="nav-item {{ request()->routeIs('qa.ai') ? 'active' : '' }}" href="{{ route('qa.ai') }}"><span class="nav-icon">✦</span><span>QA AI Assistant</span></a>@endif
+@if(app(\App\Services\Backups\BackupAccessService::class)->canView(auth()->user()))<a class="nav-item {{ request()->routeIs('backups.*') ? 'active' : '' }}" href="{{ route('backups.index') }}"><span class="nav-icon">⛁</span><span>Backups y auditoría</span></a>@endif
+@if(app(\App\Services\Authorization\BranchContext::class)->current())<span class="nav-section">Organización</span>@foreach(['branches' => ['Sucursales','▦'], 'warehouses' => ['Almacenes','▤'], 'employees' => ['Empleados','♧']] as $resource => [$label,$icon])@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), "organization.$resource.view"))<a class="nav-item {{ request()->is("organizacion/$resource*") ? 'active' : '' }}" href="{{ route('organization.index', $resource) }}"><span class="nav-icon">{{ $icon }}</span><span>{{ $label }}</span></a>@endif @endforeach @endif
+@if($activeBranch = app(\App\Services\Authorization\BranchContext::class)->current())<span class="nav-section">Operaciones</span>
+@foreach([
+    'catalog.products.view' => ['products.index','Productos','▦'],
+    'customers.view' => ['customers.index','Clientes','♙'],
+    'sales.view' => ['sales.index','Ventas','◫'],
+    'cash.view' => ['cash.index','Caja','▣'],
+    'credits.view' => ['credits.index','Créditos','◈'],
+    'purchasing.view' => ['purchases.index','Compras','⇄'],
+    'reports.branch.view' => ['reports.index','Reportes','▥'],
+] as $permission => [$route,$label,$icon])@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), $permission, $activeBranch))<a class="nav-item {{ request()->routeIs($route) ? 'active' : '' }}" href="{{ route($route) }}"><span class="nav-icon">{{ $icon }}</span><span>{{ $label }}</span></a>@endif @endforeach @endif
+@if($activeBranch && app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'reports.inventory.view', $activeBranch))<a class="nav-item {{ request()->routeIs('reports.inventory*') ? 'active' : '' }}" href="{{ route('reports.inventory') }}"><span class="nav-icon">▥</span><span>Reportes de inventario</span></a>@endif
+@if($activeBranch && app(\App\Services\MachineLearning\MachineLearningAccessService::class)->canView(auth()->user(), $activeBranch))<a class="nav-item {{ request()->routeIs('ml.*') ? 'active' : '' }}" href="{{ route('ml.forecasts.index') }}"><span class="nav-icon">⌁</span><span>Inteligencia de demanda</span></a>@endif
+@if($activeBranch && app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.stock.view', $activeBranch))
+<a class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}" href="{{ route('inventory.index') }}"><span class="nav-icon">▤</span><span>Dashboard inventario</span></a>
+@if(app(\App\Services\Authorization\GlobalAuthorizationService::class)->allows(auth()->user(), 'catalog.products.manage'))
+<a class="nav-item {{ request()->routeIs('inventory.products.*') ? 'active' : '' }}" href="{{ route('inventory.products.index') }}"><span class="nav-icon">▣</span><span>Administrar productos</span></a>
+<a class="nav-item {{ request()->routeIs('inventory.taxonomy.*') ? 'active' : '' }}" href="{{ route('inventory.taxonomy.index', 'categorias') }}"><span class="nav-icon">⌑</span><span>Categorías y marcas</span></a>
+@endif
+@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.stock.manage', $activeBranch))
+<a class="nav-item {{ request()->routeIs('inventory.receipts.*') ? 'active' : '' }}" href="{{ route('inventory.receipts.create') }}"><span class="nav-icon">＋</span><span>Nuevo ingreso</span></a>
+@endif
+@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.transfers.request', $activeBranch) || app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.transfers.approve', $activeBranch) || app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.transfers.receive', $activeBranch))
+<a class="nav-item {{ request()->routeIs('inventory.transfers.*') ? 'active' : '' }}" href="{{ route('inventory.transfers.index') }}"><span class="nav-icon">⇄</span><span>Transferencias</span></a>
+@endif
+@if(app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.adjustments.request', $activeBranch) || app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'inventory.adjustments.approve', $activeBranch))
+<a class="nav-item {{ request()->routeIs('inventory.adjustments.*') ? 'active' : '' }}" href="{{ route('inventory.adjustments.index') }}"><span class="nav-icon">±</span><span>Ajustes</span></a>
+@endif
+@endif
+@if($activeBranch && app(\App\Services\Authorization\ScopedAuthorizationService::class)->allows(auth()->user(), 'cash.approve', $activeBranch))<a class="nav-item {{ request()->routeIs('cash.supervision', 'cash.receipt') ? 'active' : '' }}" href="{{ route('cash.supervision') }}"><span class="nav-icon">✓</span><span>Supervisión de caja</span></a>@endif
+<span class="nav-section">Cuenta</span><a class="nav-item {{ request()->routeIs('password.edit') ? 'active' : '' }}" href="{{ route('password.edit') }}"><span class="nav-icon">⚿</span><span>Seguridad</span></a></nav>
+<div class="sidebar-footer"><span class="status-dot"></span><span>Entorno {{ app()->environment() }}</span></div></aside><div class="sidebar-backdrop" data-sidebar-toggle></div>
+<div class="app-main"><header class="app-topbar"><button class="topbar-menu" type="button" data-sidebar-toggle aria-label="Abrir menú">☰</button><div class="topbar-title"><span class="eyebrow">IMPORTSYSTEMGO</span><strong>@yield('page-label', 'Centro de operaciones')</strong></div><div class="topbar-actions"><div class="user-chip"><span class="avatar">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span><span class="user-copy"><strong>{{ auth()->user()->name }}</strong><small>{{ auth()->user()->email }}</small></span></div><form method="POST" action="{{ route('logout') }}" data-confirm="¿Cerrar la sesión actual?">@csrf<button class="btn btn-ghost btn-sm" type="submit">Salir</button></form></div></header>
+<main id="content" class="app-content">@if(session('status'))<div class="toast align-items-center text-bg-success border-0 position-fixed top-0 end-0 m-4 show app-toast" role="status" data-autohide="true"><div class="d-flex"><div class="toast-body">{{ session('status') }}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button></div></div>@endif @if(session('error'))<div class="alert alert-danger border-0 shadow-sm" role="alert">{{ session('error') }}</div>@endif @if($errors->any())<div class="alert alert-danger border-0 shadow-sm" role="alert"><strong>Revisa la información:</strong><ul class="mb-0 mt-2">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif @yield('content')</main></div></div>
+@else <main id="content">@if($errors->any())<div class="alert alert-danger auth-alert" role="alert">{{ $errors->first() }}</div>@endif @yield('content')</main> @endauth
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 shadow"><div class="modal-body p-4"><div class="modal-symbol">!</div><h2 class="h4" id="confirmModalTitle">Confirmar operación</h2><p id="confirmModalMessage" class="text-secondary"></p><div class="d-flex justify-content-end gap-2"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="button" class="btn btn-danger" id="confirmModalAction">Confirmar</button></div></div></div></div></div>@stack('scripts')</body></html>

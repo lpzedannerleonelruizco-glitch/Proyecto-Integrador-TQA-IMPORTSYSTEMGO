@@ -1,0 +1,16 @@
+[
+  {
+    "code": "TC-SAN-003",
+    "name": "FAIL CONTROLADO - Validación HTML5 de correo",
+    "category": "sanity",
+    "case_type": "controlled_fail",
+    "executor": "selenium",
+    "objective": "Demostrar que una aserción deliberadamente invertida produce un FAIL trazable sin alterar el ERP.",
+    "preconditions": "Edge WebDriver y formulario local de login disponibles.",
+    "test_data": {"email": "not-an-email"},
+    "validations": [{"typeMismatch": true}, {"formValid": false}],
+    "expected_result": {"demonstration": "FAIL CONTROLADO"},
+    "suite": "FAIL CONTROLADO",
+    "automation": {"status": "IMPLEMENTED", "engine": "selenium", "scenario": "controlled_validation"}
+  }
+]

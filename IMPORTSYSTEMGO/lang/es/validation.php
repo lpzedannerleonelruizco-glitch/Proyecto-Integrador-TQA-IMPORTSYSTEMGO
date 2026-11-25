@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'required' => 'El campo :attribute es obligatorio.',
+    'required_if' => 'El campo :attribute es obligatorio para este estado.',
+    'email' => 'El campo :attribute debe ser un correo válido.',
+    'string' => 'El campo :attribute debe ser texto.',
+    'integer' => 'El campo :attribute debe ser un número entero.',
+    'boolean' => 'El estado seleccionado no es válido.',
+    'confirmed' => 'La confirmación de :attribute no coincide.',
+    'current_password' => 'La contraseña actual no es correcta.',
+    'different' => 'El campo :attribute debe ser diferente de :other.',
+    'max' => ['string' => 'El campo :attribute no debe superar :max caracteres.'],
+    'min' => ['string' => 'El campo :attribute debe tener al menos :min caracteres.', 'numeric' => 'El campo :attribute debe ser al menos :min.'],
+    'unique' => 'El valor de :attribute ya está registrado.',
+    'alpha_dash' => 'El campo :attribute solo admite letras, números, guiones y guiones bajos.',
+    'in' => 'El valor de :attribute no es válido.',
+    'timezone' => 'La zona horaria no es válida.',
+    'date_format' => 'El campo :attribute debe tener el formato :format.',
+    'after_or_equal' => 'El campo :attribute no puede ser anterior a :date.',
+    'prohibited' => 'No está permitido enviar el campo :attribute.',
+    'prohibited_unless' => 'El campo :attribute no corresponde al estado seleccionado.',
+    'password' => [
+        'letters' => 'La contraseña debe contener letras.',
+        'mixed' => 'La contraseña debe contener mayúsculas y minúsculas.',
+        'numbers' => 'La contraseña debe contener números.',
+        'symbols' => 'La contraseña debe contener símbolos.',
+    ],
+    'attributes' => [
+        'email' => 'correo electrónico', 'password' => 'contraseña', 'current_password' => 'contraseña actual',
+        'name' => 'nombre', 'code' => 'código', 'employee_code' => 'código de empleado',
+        'first_name' => 'nombres', 'last_name' => 'apellidos', 'hired_at' => 'fecha de ingreso',
+        'terminated_at' => 'fecha de desvinculación', 'branch_id' => 'sucursal',
+    ],
+];

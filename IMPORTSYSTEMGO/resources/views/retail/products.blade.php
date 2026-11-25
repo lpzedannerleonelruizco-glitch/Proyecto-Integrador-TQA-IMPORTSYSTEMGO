@@ -1,0 +1,8 @@
+@extends('layouts.app')
+@section('title', 'Productos')
+@section('page-label', 'Catálogo comercial')
+@section('content')
+<section class="page-hero"><div><span class="eyebrow">Catálogo</span><h1>Productos y disponibilidad</h1><p>{{ $branch->name }} · Precios y existencias reales de la sucursal.</p></div></section>
+<section class="panel-card mt-4"><div class="panel-heading"><div><span class="eyebrow">Consulta</span><h2>Catálogo activo</h2></div><form class="d-flex gap-2" method="GET"><input class="form-control" name="q" value="{{ request('q') }}" placeholder="SKU, producto o código"><button class="btn btn-primary">Buscar</button></form></div>
+<div class="table-responsive"><table class="table align-middle"><thead><tr><th>SKU</th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Disponible</th><th>Estado</th></tr></thead><tbody>@forelse($products as $product)@php($available = (float)($product->physical_stock ?? 0) - (float)($product->reserved_stock ?? 0))<tr><td><strong>{{ $product->sku }}</strong><br><small class="text-secondary">{{ $product->barcode ?: 'Sin código' }}</small></td><td>{{ $product->name }}<br><small class="text-secondary">{{ $product->brand->name }}</small></td><td>{{ $product->category->name }}</td><td>Bs {{ number_format((float)$product->list_price, 2) }}</td><td><strong>{{ number_format($available, 0) }}</strong></td><td><span class="badge {{ $available > 5 ? 'text-bg-success' : 'text-bg-warning' }}">{{ $available > 5 ? 'Disponible' : 'Stock bajo' }}</span></td></tr>@empty<tr><td colspan="6"><div class="empty-state"><h3>No hay productos disponibles</h3><p>El catálogo aparecerá cuando se carguen datos operativos.</p></div></td></tr>@endforelse</tbody></table></div>{{ $products->links() }}</section>
+@endsection
